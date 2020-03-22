@@ -1,11 +1,29 @@
-import { catalog, categoryPrice } from './db.js'
+import {catalog, categoryPrice} from './db.js'
 
-const cart = {
+let cart = {
     currency: 'RUR',
     amount: 0,
     products: []
 };
 
+const saveToLocalStorage = (cart) => {
+    localStorage.setItem('cart', JSON.stringify(cart));
+};
+
+const loadFromLocalStorage = () => {
+    if (localStorage.length > 0) {
+        return JSON.parse(localStorage.getItem('cart'));
+    }
+};
+
+const createCart = () => {
+   let lS =  loadFromLocalStorage();
+    if(lS !== undefined) {
+        cart = lS;
+    }
+};
+
+createCart();
 const categoryPriceFindElement = category =>
     categoryPrice.find(element => element.category === category);
 
@@ -29,11 +47,29 @@ const createProductCard = product => {
     button.innerText = 'В корзину';
     button.id = `add-${product.id}`;
     button.classList.add('card-button');
+    button.innerText = 'В корзину';
+    button.id = `add-${product.id}`;
+
 
     div.append(...[img, name, price, button]);
 
     return div;
 };
+
+const renameButton = (id, action) => {
+    let button = document.querySelector(`#${action}-${id}`);
+    switch (action) {
+        case 'add':
+            button.innerText = 'Удалить';
+            button.id = `delete-${id}`;
+            break;
+        case 'delete':
+            button.innerText = 'В корзину';
+            button.id = `add-${id}`;
+            break;
+    }
+};
+
 
 const renderProducts = () => {
     document.querySelector('.catalog').append(
@@ -88,7 +124,7 @@ const renderCart = () => {
         let tag = document.createElement('p');
         tag.classList.add('price');
         tag.innerText = `Итого: ${replacePrice({price: cart.amount, currency: cart.currency})}`;
-        document.querySelector('.cart').append(tag);
+        document.querySelector('.modal-window').append(tag);
     }
 
     let cartProducts = document.querySelector('.cart-products');
@@ -99,6 +135,7 @@ const renderCart = () => {
 
     cart.products.forEach(element => cartProducts.append(createProductInBasketCard(element)));
 };
+
 
 const addProduct = (id) => {
     const index = cart.products.findIndex(element => element.id === id); // есть ли такой продукт в корзине или нет?
@@ -141,6 +178,10 @@ const plusProduct = (id) => {
     renderCart();
 };
 
+const modalWindowToggle = () => {
+    document.querySelector('.modal-window-background').classList.toggle('hidden');
+    document.querySelector('.modal-window').classList.toggle('hidden');
+};
 const eventListener = () => {
     document.addEventListener('click', (e) => {
         if (e.target['id'] !== undefined) {
@@ -159,12 +200,21 @@ const eventListener = () => {
                     break;
                 case 'delete':
                     deleteProduct(obj.id);
+                    renameButton(obj.id, 'delete');
                     break;
                 case 'add':
                     addProduct(obj.id);
+                    renameButton(obj.id, 'add');
+                    saveToLocalStorage(cart);
                     break;
                 case 'slider':
                     console.log(obj.id);
+                    break;
+                case 'open':
+                    modalWindowToggle();
+                    break;
+                case 'close':
+                    modalWindowToggle();
                     break;
             }
         }
@@ -177,4 +227,4 @@ const run = () => {
     eventListener();
 };
 
-export { run as basket }
+export {run as basket}

@@ -23,6 +23,7 @@
             --card-size: 300px;
             --main-background: #ffffff;
             --main-color: #6bb247;
+            --main-background-dark: #2B2B2B;
         }
 
         button {
@@ -34,14 +35,34 @@
         #app {
             max-width: 1024px;
             min-height: 100vh;
-            background: var(--main-background);
             margin: 0 auto;
         }
 
+        .day-theme {
+            background: var(--main-background);
+        }
+
+        .night-theme {
+            background: var(--main-background-dark);
+        }
+
         .header {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
             height: 70px;
             box-shadow: 0 8px 8px 0 rgba(225, 225, 225, 1);
             background-color: var(--main-color);
+            padding: 0 20px;
+        }
+
+        .cart-button {
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjIzLjIyMXB4IiBoZWlnaHQ9IjIwcHgiIHZpZXdCb3g9IjAgMCAyMy4yMjEgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIzLjIyMSAyMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOiNGRkZGRkY7fTwvc3R5bGU+ICAgIDxnPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMi44OTIsNS41MzNjLTAuMzU5LTAuNTM0LTAuOTU4LTAuODUzLTEuNi0wLjg1NEw2LjY0LDQuNjUxTDUuODg5LDEuNDg2QzUuNjgyLDAuNjExLDQuOTA4LDAsNC4wMDgsMEgwLjg3NiAgIEMwLjM5MiwwLDAsMC4zOTIsMCwwLjg3NnMwLjM5MiwwLjg3NiwwLjg3NiwwLjg3NmgzLjEzMmMwLjA4NCwwLDAuMTU3LDAuMDU3LDAuMTc2LDAuMTRsMi42MywxMS4wNyAgIGMwLjIwNywwLjg3NSwwLjk4MSwxLjQ4NiwxLjg4MSwxLjQ4NmgxMC4xOTdjMC43OTEsMCwxLjQ5NC0wLjQ3MywxLjc5MS0xLjIwNmwyLjM5Ny01LjkwNEMyMy4zMjEsNi43NDMsMjMuMjUxLDYuMDY3LDIyLjg5Miw1LjUzMyAgIHogTTIxLjQ1NSw2LjY4bC0yLjM5Nyw1LjkwNGMtMC4wMjcsMC4wNjctMC4wOTUsMC4xMTMtMC4xNjcsMC4xMTNIOC42OTRjLTAuMDg0LDAtMC4xNTctMC4wNTctMC4xNzYtMC4xNEw3LjA1Nyw2LjQwNCAgIGwxNC4yMzIsMC4wMjdjMC4wNzksMCwwLjEyNSwwLjA0MywwLjE0OSwwLjA4QzIxLjQ2Miw2LjU0NywyMS40ODUsNi42MDYsMjEuNDU1LDYuNjh6Ii8+ICAgICAgICA8Y2lyY2xlIGNsYXNzPSJzdDAiIGN4PSI5LjQ4NiIgY3k9IjE4LjM3MyIgcj0iMS42MjciLz4gICAgICAgIDxjaXJjbGUgY2xhc3M9InN0MCIgY3g9IjE4LjgxIiBjeT0iMTguMzczIiByPSIxLjYyNyIvPjwvZz48L3N2Zz4=);
         }
 
         .slider {
@@ -130,20 +151,52 @@
             background-position: center;
         }
 
+        .modal-window-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            width: 100vw;
+            background: rgba(43, 43, 43, .7);
+            z-index: 3;
+        }
+
+        .modal-window {
+            position: fixed;
+            top: calc(100% / 2 - 250px);
+            left: calc(100% / 2 - 512px);
+            width: 1024px;
+            height: 500px;
+            z-index: 4;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .cart {
+            height: 100%;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
         .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
-<div id="app">
+<div id="app" class="day-theme">
     <div class="header">
-        <button class="cart-button">Корзина</button>
+        <!--        <button class="theme">Вкл</button>-->
+        <button id="open" class="cart-button"></button>
     </div>
     <div class="slider"></div>
     <div class="catalog"></div>
-    <div class="cart">
-        <div class="cart-products"></div>
+    <div id="close" class="modal-window-background hidden"></div>
+    <div class="modal-window hidden">
+        <div class="cart">
+            <div class="cart-products"></div>
+        </div>
     </div>
 </div>
 <script src="main.js" type="module"></script>
