@@ -7,6 +7,6 @@ import { slider } from './slider.js';
 const run = () => {
     slider();
     basket();
-    //timeNow();
+   // timeNow();
 };
 run();

@@ -22,7 +22,55 @@ const sliderImages = [
     {
         image: 'fcf5c9764ce8d00d',
         id: 6
-    }
+    },
+    {
+        image: '7014d3f9eeeed0ff',
+        id: 7
+    },
+    {
+        image: '812d34caa53146dd',
+        id: 8
+    },
+    {
+        image: '2d5d8ab6eea47454',
+        id: 9
+    },
+    {
+        image: 'c4b1cf1a2da7eae5',
+        id: 10
+    },
+    {
+        image: 'e5ebd9b9ad3bd7ab',
+        id: 11
+    },
+    {
+        image: 'f707ac69e217af06',
+        id: 12
+    },
+    {
+        image: '327bf3efde1e4bcf',
+        id: 13
+    },
+    {
+        image: '8b2b2b7f6ba5d8dd',
+        id: 14
+    },
+    {
+        image: '372af953b9b5e7ac',
+        id: 15
+    },
+    {
+        image: '94b20d57d1d15453',
+        id: 16
+    },
+    {
+        image: 'f4d45f96c4831a7a',
+        id: 17
+    },
+    {
+        image: '6431e29968fe9062',
+        id: 18
+    },
 ];
 
 const createSliderElements = obj => {
