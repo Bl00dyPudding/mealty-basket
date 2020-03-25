@@ -25,6 +25,7 @@
             --main-color: #6bb247;
             --main-background-dark: #2B2B2B;
             --main-hover-color: #556b2f;
+            --additional-hover-color: rgba(200, 200, 200, .4);
         }
 
         button {
@@ -218,6 +219,18 @@
             grid-row-gap: 20px;
         }
 
+        .close-modal {
+            position: absolute;
+            display: none;
+            height: 30px;
+            width: 30px;
+            font-size: 30px;
+            top: 10px;
+            right: 15px;
+            line-height: 30px;
+            text-align: center;
+        }
+
         /*CART*/
 
         .cart {
@@ -225,10 +238,17 @@
             padding-right: 20px;
             overflow: hidden;
             overflow-y: auto;
+            display: grid;
+            grid-template-rows: repeat(auto-fill, 75px);
+            grid-row-gap: 20px;
         }
 
-        .basket-products {
+        .cart-product {
             display: grid;
+            grid-template-columns: 30px 70px auto;
+            grid-column-gap: 10px;
+            grid-template-rows: auto 40px;
+            grid-template-areas: 'delete img name' 'delete img buttons';
             border-bottom: 1px solid rgba(225, 225, 225, .5);
         }
 
@@ -239,17 +259,15 @@
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
-            margin-left: 10px;
+            grid-area: img;
+            justify-self: center;
+            align-self: center;
         }
 
-        .name-quantity {
+        .cart-name {
             color: #666666;
             font-size: 15px;
-            line-height: 1.25;
-            margin-left: 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
+            grid-area: name;
         }
 
         .buttons {
@@ -258,39 +276,46 @@
             flex-direction: row;
             justify-content: space-around;
             align-items: center;
+            grid-area: buttons;
+            align-self: center;
+        }
+
+        .button-plus,
+        .button-minus,
+        .delete {
+            width: 30px;
+            height: 30px;
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            transition: background-color .3s;
+            border-radius: 50%;
         }
 
         .button-plus {
-            width: 30px;
-            height: 30px;
             background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcuN3B4IiBoZWlnaHQ9IjcuN3B4IiB2aWV3Qm94PSIwIDAgNy43IDcuNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNy43IDcuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOm5vbmU7c3Ryb2tlOiM2QkIyNDc7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fTwvc3R5bGU+ICAgIDxnPjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIwLjc1IiB5MT0iMy44NSIgeDI9IjYuOTUiIHkyPSIzLjg1Ii8+ICAgICAgICA8bGluZSBjbGFzcz0ic3QwIiB4MT0iMy44NSIgeTE9IjAuNzUiIHgyPSIzLjg1IiB5Mj0iNi45NSIvPjwvZz48L3N2Zz4=);
-            background-size: 13px 13px;
-            background-repeat: no-repeat;
-            background-position: center;
         }
 
         .button-minus {
-            width: 30px;
-            height: 30px;
             background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcuN3B4IiBoZWlnaHQ9IjEuNXB4IiB2aWV3Qm94PSIwIDAgNy43IDEuNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNy43IDEuNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOm5vbmU7c3Ryb2tlOiM2QkIyNDc7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fTwvc3R5bGU+ICAgIDxnPjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIwLjc1IiB5MT0iMC43NSIgeDI9IjYuOTUiIHkyPSIwLjc1Ii8+PC9nPjwvc3ZnPg==);
-            background-size: 13px 13px;
-            background-repeat: no-repeat;
-            background-position: center;
         }
 
         .delete {
             background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5LjQgOS40Ij48ZGVmcz48c3R5bGU+LmNscy0xe29wYWNpdHk6MC41O30uY2xzLTJ7ZmlsbDpub25lO3N0cm9rZTojYjJiMmIyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6MS40cHg7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pY29uX2Nsb3NlPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0i0KHQu9C+0LlfNCIgZGF0YS1uYW1lPSLQodC70L7QuSA0Ij48ZyBpZD0iX0dyb3VwXyIgZGF0YS1uYW1lPSImbHQ7R3JvdXAmZ3Q7IiBjbGFzcz0iY2xzLTEiPjxsaW5lIGlkPSJfTGluZV8iIGRhdGEtbmFtZT0iJmx0O0xpbmUmZ3Q7IiBjbGFzcz0iY2xzLTIiIHgxPSIwLjciIHkxPSIwLjciIHgyPSI4LjciIHkyPSI4LjciLz48bGluZSBpZD0iX0xpbmVfMiIgZGF0YS1uYW1lPSImbHQ7TGluZSZndDsiIGNsYXNzPSJjbHMtMiIgeDE9IjguNyIgeTE9IjAuNyIgeDI9IjAuNyIgeTI9IjguNyIvPjwvZz48L2c+PC9nPjwvc3ZnPg==);
-            background-size: 13px 13px;
-            background-repeat: no-repeat;
-            background-position: center;
-            width: 30px;
-            height: 30px;
+            grid-area: delete;
+            justify-self: center;
             align-self: center;
+        }
+
+        .button-plus:hover,
+        .button-minus:hover,
+        .delete:hover {
+            background-color: var(--additional-hover-color);
         }
 
         .quantity {
             width: 45px;
-            height: 34px;
+            height: 30px;
             padding: 6px 12px;
             border: 1px solid #EFF2ED;
             background-color: #F6F7F5;
@@ -308,7 +333,15 @@
         }
 
         .price {
-            color: #666666;
+            color: rgba(200, 200, 200, 1);
+            font-size: .8rem;
+            align-self: center;
+        }
+
+        .price > span {
+            font-size: 1.3rem;
+            color: var(--main-color);
+            font-weight: bold;
         }
 
         .order-button {
@@ -326,10 +359,40 @@
             background-color: var(--main-hover-color);
         }
 
+        .discount {
+            height: 30px;
+            padding: 6px 12px;
+            border: 1px solid #EFF2ED;
+            background-color: #F6F7F5;
+            text-align: center;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+
         /*ADDITIONAL*/
 
         .hidden {
             display: none;
+        }
+
+        @media screen and (max-width: 1024px) {
+            /*MODAL*/
+
+            .modal-window-background {
+                display: none;
+            }
+
+            .modal-window {
+                position: fixed;
+                top: 0;
+                width: 100%;
+                height: 100vh;
+                border-radius: 0;
+            }
+
+            .close-modal {
+                display: block;
+            }
         }
 
     </style>
@@ -347,11 +410,14 @@
     <div class="catalog"></div>
     <div id="close" class="modal-window-background hidden"></div>
     <div class="modal-window hidden">
+        <div class="close-modal" id="closeModal">&times;</div>
         <div class="cart">
-            <div class="cart-products"></div>
         </div>
         <div class="cart-footer">
             <button class="order-button">Оформить заказ</button>
+            <label for="discount">
+                <input type="text" class="discount" id="discount" placeholder="Введите промокод">
+            </label>
         </div>
     </div>
 </div>

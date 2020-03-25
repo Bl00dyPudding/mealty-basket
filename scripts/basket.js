@@ -84,7 +84,6 @@ const renderProducts = () => {
 const createProductInBasketCard = product => {
     let productCard = document.createElement('div'),
         img = document.createElement('div'),
-        nameQuantity = document.createElement('div'),
         name = document.createElement('p'),
         buttons = document.createElement('div'),
         buttonPlus = document.createElement('button'),
@@ -92,10 +91,10 @@ const createProductInBasketCard = product => {
         buttonMinus = document.createElement('button'),
         deleteProduct = document.createElement('button');
 
-    productCard.classList.add('basket-products');
+    productCard.classList.add('cart-product');
     img.classList.add('cart-img');
     img.style.backgroundImage = `url(img/${product.image}.jpeg)`;
-    nameQuantity.classList.add('name-quantity');
+    name.classList.add('name');
     name.innerText = product['name'];
     buttons.classList.add('buttons');
     buttonPlus.classList.add('button-plus');
@@ -108,8 +107,7 @@ const createProductInBasketCard = product => {
     deleteProduct.id = `deleteFromBasket-${product.id}`;
 
     buttons.append(...[buttonMinus, quantity, buttonPlus]);
-    nameQuantity.append(...[name, buttons]);
-    productCard.append(...[deleteProduct, img, nameQuantity]);
+    productCard.append(...[deleteProduct, img, name, buttons]);
 
     return productCard;
 };
@@ -133,7 +131,7 @@ const renderCart = () => {
         document.querySelector('.cart-footer').append(tag);
     }
 
-    let cartProducts = document.querySelector('.cart-products');
+    let cartProducts = document.querySelector('.cart');
 
     if (cartProducts.children.length > 0) {
         cartProducts.innerHTML = '';
@@ -208,6 +206,7 @@ const eventListener = () => {
                     saveToLocalStorage(cart);
                     break;
                 case 'delete':
+                case 'deleteFromBasket':
                     deleteProduct(obj.id);
                     renameButton(obj.id, 'delete');
                     saveToLocalStorage(cart);
@@ -217,11 +216,6 @@ const eventListener = () => {
                     renameButton(obj.id, 'add');
                     saveToLocalStorage(cart);
                     break;
-                case 'deleteFromBasket':
-                    deleteProduct(obj.id);
-                    renameButton(obj.id, 'delete');
-                    saveToLocalStorage(cart);
-                    break;
                 case 'slider':
                     console.log(obj.id);
                     break;
@@ -229,6 +223,7 @@ const eventListener = () => {
                     modalWindowToggle();
                     break;
                 case 'close':
+                case 'closeModal':
                     modalWindowToggle();
                     break;
             }
