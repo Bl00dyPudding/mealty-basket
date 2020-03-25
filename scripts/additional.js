@@ -1,4 +1,4 @@
-const run = () => {
+const changeTitle = () => {
     const title = document.querySelector('title');
 
     window.onblur = () => {
@@ -8,6 +8,10 @@ const run = () => {
     window.onfocus = () => {
         title.innerText = 'Shop';
     };
+};
+
+const run = () => {
+    changeTitle();
 };
 
 export {run as additional}

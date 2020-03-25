@@ -9,9 +9,7 @@ const switchTheme = (time = null) => {
 };
 
 const buttonTheme = () => {
-    let button = document.querySelector('.theme');
-    button.onclick = switchTheme;
-
+    document.querySelector('.theme').onclick = switchTheme;
 };
 
 const getTime = () => {

@@ -63,7 +63,7 @@
         .cart-amount {
             color: #ffffff;
             font-weight: bold;
-            font-size: 20px;
+            font-size: 1.3rem;
         }
 
         .cart-button {
@@ -107,6 +107,27 @@
         }
 
         /*SLIDER*/
+
+        .slider-wrapper {
+            position: relative;
+        }
+
+        .slider-text {
+            position: absolute;
+            height: var(--card-size);
+            width: 100%;
+            max-width: 1024px;
+            top: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #ffffff;
+            font-size: 4rem;
+            text-transform: uppercase;
+            z-index: 2;
+            text-shadow: var(--additional-hover-color) 1px 0 10px;
+            letter-spacing: .5rem;
+        }
 
         .slider {
             position: relative;
@@ -224,7 +245,7 @@
             display: none;
             height: 30px;
             width: 30px;
-            font-size: 30px;
+            font-size: 2rem;
             top: 10px;
             right: 15px;
             line-height: 30px;
@@ -238,9 +259,6 @@
             padding-right: 20px;
             overflow: hidden;
             overflow-y: auto;
-            display: grid;
-            grid-template-rows: repeat(auto-fill, 75px);
-            grid-row-gap: 20px;
         }
 
         .cart-product {
@@ -250,6 +268,8 @@
             grid-template-rows: auto 40px;
             grid-template-areas: 'delete img name' 'delete img buttons';
             border-bottom: 1px solid rgba(225, 225, 225, .5);
+            margin-top: 5px;
+            padding-bottom: 5px;
         }
 
         .cart-img {
@@ -266,7 +286,7 @@
 
         .cart-name {
             color: #666666;
-            font-size: 15px;
+            font-size: 1rem;
             grid-area: name;
         }
 
@@ -327,15 +347,19 @@
         .cart-footer {
             padding-left: 20px;
             padding-right: 20px;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
             align-items: center;
+            justify-content: center;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-areas: 'discount price button';
         }
 
         .price {
             color: rgba(200, 200, 200, 1);
             font-size: .8rem;
             align-self: center;
+            grid-area: price;
+            text-align: center;
         }
 
         .price > span {
@@ -367,6 +391,13 @@
             text-align: center;
             border-radius: 4px;
             margin: 0 5px;
+            grid-area: discount;
+        }
+
+        .cart-empty {
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         /*ADDITIONAL*/
@@ -376,6 +407,13 @@
         }
 
         @media screen and (max-width: 1024px) {
+            /*SLIDER*/
+
+            .slider-text {
+                font-size: 2rem;
+                text-align: center;
+            }
+
             /*MODAL*/
 
             .modal-window-background {
@@ -393,6 +431,20 @@
             .close-modal {
                 display: block;
             }
+
+            /*CART*/
+
+            .cart-product {
+                width: 90%;
+                grid-template-rows: auto 70px;
+            }
+
+            .cart-footer {
+                grid-template-columns: repeat(2, 1fr);
+                grid-template-rows: repeat(2, 30px);
+                grid-template-areas: 'discount price' 'button button';
+                grid-row-gap: 10px;
+            }
         }
 
     </style>
@@ -406,14 +458,18 @@
             <button id="open" class="cart-button"></button>
         </div>
     </div>
-    <div class="slider"></div>
+    <div class="slider-wrapper">
+        <div class="slider"></div>
+        <div class="slider-text">Новинки сезона</div>
+    </div>
     <div class="catalog"></div>
     <div id="close" class="modal-window-background hidden"></div>
     <div class="modal-window hidden">
         <div class="close-modal" id="closeModal">&times;</div>
-        <div class="cart">
+        <div class="cart-empty">В корзине пусто 🙁</div>
+        <div class="cart hidden">
         </div>
-        <div class="cart-footer">
+        <div class="cart-footer hidden">
             <button class="order-button">Оформить заказ</button>
             <label for="discount">
                 <input type="text" class="discount" id="discount" placeholder="Введите промокод">

@@ -14,12 +14,13 @@ const loadFromLocalStorage = () => {
 
 const createCart = () => {
     const lS = loadFromLocalStorage();
-    if (lS !== undefined && lS !== null && lS.hasOwnProperty('products')) {
+    if (lS !== undefined && lS !== null && lS.hasOwnProperty('products') && lS.products.length > 0) {
         cart = lS;
     } else {
         cart = {
             currency: 'RUR',
             amount: 0,
+            discount: 100,
             products: []
         };
     }
@@ -75,6 +76,17 @@ const renameButton = (id, action) => {
     }
 };
 
+const sortCatalog = () =>
+    catalog.sort((a, b) => {
+        if (a.category > b.category) {
+            return 1;
+        }
+        if (a.category < b.category) {
+            return -1;
+        }
+        return 0;
+    });
+
 const renderProducts = () => {
     document.querySelector('.catalog').append(
         ...catalog.map(element => createProductCard(element))
@@ -118,7 +130,7 @@ const getProductQuantity = () =>
 
 const renderCart = () => {
     cart.amount = cart.products.reduce((accumulator, currentValue) =>
-        accumulator + currentValue.price * currentValue.quantity, 0);
+        accumulator + currentValue.price * currentValue.quantity * (cart.discount / 100), 0);
 
     let price = document.querySelector('.price');
     if (price !== null) {
@@ -140,6 +152,55 @@ const renderCart = () => {
     cart.products.forEach(element => cartProducts.append(createProductInBasketCard(element)));
     document.querySelector('.count').innerText = getProductQuantity();
     document.querySelector('.cart-amount').innerText = replacePrice(cart.amount);
+
+    if (cart.products.length > 0) {
+        document.querySelector('.cart-empty').classList.add('hidden');
+        document.querySelector('.cart').classList.remove('hidden');
+        document.querySelector('.cart-footer').classList.remove('hidden');
+    } else {
+        document.querySelector('.cart-empty').classList.remove('hidden');
+        document.querySelector('.cart').classList.add('hidden');
+        document.querySelector('.cart-footer').classList.add('hidden');
+    }
+
+    console.log(cart)
+};
+
+const discount = () => {
+    const input = document.querySelector('#discount');
+    const discounts = [
+        {
+            name: 'PROMO10',
+            value: 10
+        },
+        {
+            name: 'COVID19',
+            value: 19
+        },
+        {
+            name: 'SPRING2020',
+            value: 20
+        },
+        {
+            name: 'WHILETRUE',
+            value: 90
+        }
+    ];
+
+    if (cart.discount < 100) {
+        input.value = 'Скидка активна';
+    }
+
+    input.oninput = () => {
+        const idx = discounts.findIndex(discount => discount.name === input.value);
+        if (idx !== -1) {
+            cart.discount = 100 - discounts[idx].value;
+            input.value = 'Скидка активна';
+        } else {
+            cart.discount = 100;
+        }
+        renderCart();
+    }
 };
 
 const addProduct = (id) => {
@@ -234,7 +295,9 @@ const eventListener = () => {
 const run = () => {
     createCart();
     renderCart();
+    sortCatalog();
     renderProducts();
+    discount();
     eventListener();
 };
 
