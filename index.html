@@ -24,6 +24,7 @@
             --main-background: #ffffff;
             --main-color: #6bb247;
             --main-background-dark: #2B2B2B;
+            --main-hover-color: #556b2f;
         }
 
         button {
@@ -46,6 +47,8 @@
             background: var(--main-background-dark);
         }
 
+        /*HEADER*/
+
         .header {
             display: flex;
             justify-content: flex-end;
@@ -56,85 +59,53 @@
             padding: 0 20px;
         }
 
+        .cart-amount {
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
         .cart-button {
-            width: 30px;
-            height: 30px;
-            background-size: contain;
+            margin-left: 20px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            transition: background-color .3s;
+            background-size: 80%;
             background-repeat: no-repeat;
             background-position: center;
             background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjIzLjIyMXB4IiBoZWlnaHQ9IjIwcHgiIHZpZXdCb3g9IjAgMCAyMy4yMjEgMjAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDIzLjIyMSAyMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOiNGRkZGRkY7fTwvc3R5bGU+ICAgIDxnPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik0yMi44OTIsNS41MzNjLTAuMzU5LTAuNTM0LTAuOTU4LTAuODUzLTEuNi0wLjg1NEw2LjY0LDQuNjUxTDUuODg5LDEuNDg2QzUuNjgyLDAuNjExLDQuOTA4LDAsNC4wMDgsMEgwLjg3NiAgIEMwLjM5MiwwLDAsMC4zOTIsMCwwLjg3NnMwLjM5MiwwLjg3NiwwLjg3NiwwLjg3NmgzLjEzMmMwLjA4NCwwLDAuMTU3LDAuMDU3LDAuMTc2LDAuMTRsMi42MywxMS4wNyAgIGMwLjIwNywwLjg3NSwwLjk4MSwxLjQ4NiwxLjg4MSwxLjQ4NmgxMC4xOTdjMC43OTEsMCwxLjQ5NC0wLjQ3MywxLjc5MS0xLjIwNmwyLjM5Ny01LjkwNEMyMy4zMjEsNi43NDMsMjMuMjUxLDYuMDY3LDIyLjg5Miw1LjUzMyAgIHogTTIxLjQ1NSw2LjY4bC0yLjM5Nyw1LjkwNGMtMC4wMjcsMC4wNjctMC4wOTUsMC4xMTMtMC4xNjcsMC4xMTNIOC42OTRjLTAuMDg0LDAtMC4xNTctMC4wNTctMC4xNzYtMC4xNEw3LjA1Nyw2LjQwNCAgIGwxNC4yMzIsMC4wMjdjMC4wNzksMCwwLjEyNSwwLjA0MywwLjE0OSwwLjA4QzIxLjQ2Miw2LjU0NywyMS40ODUsNi42MDYsMjEuNDU1LDYuNjh6Ii8+ICAgICAgICA8Y2lyY2xlIGNsYXNzPSJzdDAiIGN4PSI5LjQ4NiIgY3k9IjE4LjM3MyIgcj0iMS42MjciLz4gICAgICAgIDxjaXJjbGUgY2xhc3M9InN0MCIgY3g9IjE4LjgxIiBjeT0iMTguMzczIiByPSIxLjYyNyIvPjwvZz48L3N2Zz4=);
         }
 
-        .button-plus {
-            width: 30px;
-            height: 30px;
-            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcuN3B4IiBoZWlnaHQ9IjcuN3B4IiB2aWV3Qm94PSIwIDAgNy43IDcuNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNy43IDcuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOm5vbmU7c3Ryb2tlOiM2QkIyNDc7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fTwvc3R5bGU+ICAgIDxnPjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIwLjc1IiB5MT0iMy44NSIgeDI9IjYuOTUiIHkyPSIzLjg1Ii8+ICAgICAgICA8bGluZSBjbGFzcz0ic3QwIiB4MT0iMy44NSIgeTE9IjAuNzUiIHgyPSIzLjg1IiB5Mj0iNi45NSIvPjwvZz48L3N2Zz4=);
-            background-size: 13px 13px;
-            background-repeat: no-repeat;
-            background-position: center;
+        .cart-button:hover {
+            background-color: var(--main-hover-color);
         }
 
-        .button-minus {
-            width: 30px;
-            height: 30px;
-            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcuN3B4IiBoZWlnaHQ9IjEuNXB4IiB2aWV3Qm94PSIwIDAgNy43IDEuNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNy43IDEuNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOm5vbmU7c3Ryb2tlOiM2QkIyNDc7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fTwvc3R5bGU+ICAgIDxnPjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIwLjc1IiB5MT0iMC43NSIgeDI9IjYuOTUiIHkyPSIwLjc1Ii8+PC9nPjwvc3ZnPg==);
-            background-size: 13px 13px;
-            background-repeat: no-repeat;
-            background-position: center;
+        .count-cart-button {
+            position: relative;
+            grid-area: cart;
         }
 
-        .delete {
-            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5LjQgOS40Ij48ZGVmcz48c3R5bGU+LmNscy0xe29wYWNpdHk6MC41O30uY2xzLTJ7ZmlsbDpub25lO3N0cm9rZTojYjJiMmIyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6MS40cHg7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pY29uX2Nsb3NlPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0i0KHQu9C+0LlfNCIgZGF0YS1uYW1lPSLQodC70L7QuSA0Ij48ZyBpZD0iX0dyb3VwXyIgZGF0YS1uYW1lPSImbHQ7R3JvdXAmZ3Q7IiBjbGFzcz0iY2xzLTEiPjxsaW5lIGlkPSJfTGluZV8iIGRhdGEtbmFtZT0iJmx0O0xpbmUmZ3Q7IiBjbGFzcz0iY2xzLTIiIHgxPSIwLjciIHkxPSIwLjciIHgyPSI4LjciIHkyPSI4LjciLz48bGluZSBpZD0iX0xpbmVfMiIgZGF0YS1uYW1lPSImbHQ7TGluZSZndDsiIGNsYXNzPSJjbHMtMiIgeDE9IjguNyIgeTE9IjAuNyIgeDI9IjAuNyIgeTI9IjguNyIvPjwvZz48L2c+PC9nPjwvc3ZnPg==);
-            background-size: 13px 13px;
-            background-repeat: no-repeat;
-            background-position: center;
-            width: 30px;
-            height: 30px;
-            align-self: center;
-        }
-
-        .quantity {
-            width: 45px;
-            height: 34px;
-            padding: 6px 12px;
-            border: 1px solid #EFF2ED;
-            background-color: #F6F7F5;
-            text-align: center;
-            border-radius: 4px;
-            margin: 0 5px;
-        }
-
-        .basket-products {
-            width: 800px;
+        .count-wrapper {
             display: flex;
-            flex-direction: row;
-            margin-bottom: 30px;
-            border-bottom: 1px solid rgba(225, 225, 225, .5);
-            padding-bottom: 30px;
-        }
-
-        .price {
-            padding-top: 10px;
-            color: #666666;
-        }
-
-        .name-quantity {
-            color: #666666;
-            font-size: 15px;
-            line-height: 1.25;
-            margin-left: 20px;
-            display: flex;
-            justify-content: space-between;
-            flex-direction: column;
-        }
-
-        .buttons {
-            width: 110px;
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
+            justify-content: center;
             align-items: center;
+            position: absolute;
+            top: -5px;
+            right: -10px;
+            background: #ffffff;
+            min-width: 20px;
+            height: 20px;
+            padding: 2px;
+            border-radius: 50%;
         }
+
+        .count {
+            font-weight: bold;
+            font-size: .8rem;
+        }
+
+        /*SLIDER*/
 
         .slider {
             position: relative;
@@ -158,6 +129,8 @@
             opacity: 0;
             z-index: 1;
         }
+
+        /*CATALOG*/
 
         .catalog {
             display: grid;
@@ -211,17 +184,14 @@
             color: #ffffff;
             text-transform: uppercase;
             font-size: 1.1rem;
+            transition: background-color .3s;
         }
 
-        .cart-img {
-            height: 70px;
-            width: 70px;
-            border-radius: 5px;
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-position: center;
-            margin-left: 10px;
+        .card-button:hover {
+            background-color: var(--main-hover-color);
         }
+
+        /*MODAL*/
 
         .modal-window-background {
             position: fixed;
@@ -235,45 +205,133 @@
 
         .modal-window {
             position: fixed;
-            top: calc(100% / 2 - 250px);
-            left: calc(100% / 2 - 512px);
-            width: 1024px;
-            height: 500px;
+            top: calc(100% / 2 - 40vh);
+            width: 100%;
+            max-width: 1024px;
+            height: 80vh;
             z-index: 4;
             background: #ffffff;
-            padding: 40px;
+            padding: 40px 0;
             border-radius: 10px;
+            display: grid;
+            grid-template-rows: auto 50px;
+            grid-row-gap: 20px;
         }
 
+        /*CART*/
+
         .cart {
-            height: 100%;
+            padding-left: 20px;
+            padding-right: 20px;
             overflow: hidden;
             overflow-y: auto;
         }
 
+        .basket-products {
+            display: grid;
+            border-bottom: 1px solid rgba(225, 225, 225, .5);
+        }
+
+        .cart-img {
+            height: 70px;
+            width: 70px;
+            border-radius: 5px;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            margin-left: 10px;
+        }
+
+        .name-quantity {
+            color: #666666;
+            font-size: 15px;
+            line-height: 1.25;
+            margin-left: 20px;
+            display: flex;
+            justify-content: space-between;
+            flex-direction: column;
+        }
+
+        .buttons {
+            width: 110px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .button-plus {
+            width: 30px;
+            height: 30px;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcuN3B4IiBoZWlnaHQ9IjcuN3B4IiB2aWV3Qm94PSIwIDAgNy43IDcuNyIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNy43IDcuNzsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOm5vbmU7c3Ryb2tlOiM2QkIyNDc7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fTwvc3R5bGU+ICAgIDxnPjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIwLjc1IiB5MT0iMy44NSIgeDI9IjYuOTUiIHkyPSIzLjg1Ii8+ICAgICAgICA8bGluZSBjbGFzcz0ic3QwIiB4MT0iMy44NSIgeTE9IjAuNzUiIHgyPSIzLjg1IiB5Mj0iNi45NSIvPjwvZz48L3N2Zz4=);
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .button-minus {
+            width: 30px;
+            height: 30px;
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB2ZXJzaW9uPSIxLjEiIGlkPSLQodC70L7QuV8xIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjcuN3B4IiBoZWlnaHQ9IjEuNXB4IiB2aWV3Qm94PSIwIDAgNy43IDEuNSIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNy43IDEuNTsiIHhtbDpzcGFjZT0icHJlc2VydmUiPjxzdHlsZSB0eXBlPSJ0ZXh0L2NzcyI+LnN0MHtmaWxsOm5vbmU7c3Ryb2tlOiM2QkIyNDc7c3Ryb2tlLXdpZHRoOjEuNTtzdHJva2UtbGluZWNhcDpyb3VuZDtzdHJva2UtbGluZWpvaW46cm91bmQ7c3Ryb2tlLW1pdGVybGltaXQ6MTA7fTwvc3R5bGU+ICAgIDxnPjxsaW5lIGNsYXNzPSJzdDAiIHgxPSIwLjc1IiB5MT0iMC43NSIgeDI9IjYuOTUiIHkyPSIwLjc1Ii8+PC9nPjwvc3ZnPg==);
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .delete {
+            background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA5LjQgOS40Ij48ZGVmcz48c3R5bGU+LmNscy0xe29wYWNpdHk6MC41O30uY2xzLTJ7ZmlsbDpub25lO3N0cm9rZTojYjJiMmIyO3N0cm9rZS1saW5lY2FwOnJvdW5kO3N0cm9rZS1saW5lam9pbjpyb3VuZDtzdHJva2Utd2lkdGg6MS40cHg7fTwvc3R5bGU+PC9kZWZzPjx0aXRsZT5pY29uX2Nsb3NlPC90aXRsZT48ZyBpZD0iTGF5ZXJfMiIgZGF0YS1uYW1lPSJMYXllciAyIj48ZyBpZD0i0KHQu9C+0LlfNCIgZGF0YS1uYW1lPSLQodC70L7QuSA0Ij48ZyBpZD0iX0dyb3VwXyIgZGF0YS1uYW1lPSImbHQ7R3JvdXAmZ3Q7IiBjbGFzcz0iY2xzLTEiPjxsaW5lIGlkPSJfTGluZV8iIGRhdGEtbmFtZT0iJmx0O0xpbmUmZ3Q7IiBjbGFzcz0iY2xzLTIiIHgxPSIwLjciIHkxPSIwLjciIHgyPSI4LjciIHkyPSI4LjciLz48bGluZSBpZD0iX0xpbmVfMiIgZGF0YS1uYW1lPSImbHQ7TGluZSZndDsiIGNsYXNzPSJjbHMtMiIgeDE9IjguNyIgeTE9IjAuNyIgeDI9IjAuNyIgeTI9IjguNyIvPjwvZz48L2c+PC9nPjwvc3ZnPg==);
+            background-size: 13px 13px;
+            background-repeat: no-repeat;
+            background-position: center;
+            width: 30px;
+            height: 30px;
+            align-self: center;
+        }
+
+        .quantity {
+            width: 45px;
+            height: 34px;
+            padding: 6px 12px;
+            border: 1px solid #EFF2ED;
+            background-color: #F6F7F5;
+            text-align: center;
+            border-radius: 4px;
+            margin: 0 5px;
+        }
+
+        .cart-footer {
+            padding-left: 20px;
+            padding-right: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .price {
+            color: #666666;
+        }
+
+        .order-button {
+            grid-area: button;
+            height: 30px;
+            background: var(--main-color);
+            color: #ffffff;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            transition: background-color .3s;
+            padding: 0 10px;
+        }
+
+        .order-button:hover {
+            background-color: var(--main-hover-color);
+        }
+
+        /*ADDITIONAL*/
+
         .hidden {
             display: none;
         }
-        .count-cart-button {
-            position: relative;
-        }
-        .count-wrapper {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #ffffff;
-            min-width: 20px;
-            height: 20px;
-            padding: 2px;
-            border-radius: 50%;
-        }
 
-        .count {
-            font-size: .8rem;
-        }
     </style>
 </head>
 <body>
@@ -284,9 +342,6 @@
             <div class="count-wrapper"><div class="count">0</div></div>
             <button id="open" class="cart-button"></button>
         </div>
-
-        <!--        <button class="theme">Вкл</button>-->
-
     </div>
     <div class="slider"></div>
     <div class="catalog"></div>
@@ -295,9 +350,11 @@
         <div class="cart">
             <div class="cart-products"></div>
         </div>
-            <button>Оформить заказ</button>
+        <div class="cart-footer">
+            <button class="order-button">Оформить заказ</button>
+        </div>
     </div>
 </div>
-<script src="main.js" type="module"></script>
+<script src="scripts/main.js" type="module"></script>
 </body>
 </html>

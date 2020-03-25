@@ -1,10 +1,6 @@
 import {catalog, categoryPrice} from './db.js'
 
-let cart = {
-    currency: 'RUR',
-    amount: 0,
-    products: []
-};
+let cart = {};
 
 const saveToLocalStorage = (cart) => {
     localStorage.setItem('cart', JSON.stringify(cart));
@@ -20,6 +16,12 @@ const createCart = () => {
     const lS = loadFromLocalStorage();
     if (lS !== undefined && lS !== null && lS.hasOwnProperty('products')) {
         cart = lS;
+    } else {
+        cart = {
+            currency: 'RUR',
+            amount: 0,
+            products: []
+        };
     }
 };
 
@@ -27,7 +29,7 @@ const categoryPriceFindElement = category =>
     categoryPrice.find(element => element.category === category);
 
 const replacePrice = (element, html = false) =>
-    html ? `<span>${element.price}</span> руб` : `${element.price} руб`;
+    html ? `<span>${element}</span> руб` : `${element} руб`;
 
 const createProductCard = product => {
     let div = document.createElement('div'),
@@ -41,7 +43,7 @@ const createProductCard = product => {
     img.style.backgroundImage = `url(img/${product.image}.jpeg)`;
     name.innerText = product['name'];
     name.classList.add('card-name');
-    price.insertAdjacentHTML('afterbegin', replacePrice(categoryPriceFindElement(product['category']), true));
+    price.insertAdjacentHTML('afterbegin', replacePrice(categoryPriceFindElement(product['category']).price, true));
     price.classList.add('card-price');
     button.classList.add('card-button');
 
@@ -122,12 +124,13 @@ const renderCart = () => {
 
     let price = document.querySelector('.price');
     if (price !== null) {
-        price.innerText = `Итого: ${replacePrice({price: cart.amount, currency: cart.currency})}`;
+        price.innerHTML = '';
+        price.insertAdjacentHTML('afterbegin', replacePrice(cart.amount, true));
     } else {
         let tag = document.createElement('p');
         tag.classList.add('price');
-        tag.innerText = `Итого: ${replacePrice({price: cart.amount, currency: cart.currency})}`;
-        document.querySelector('.modal-window').append(tag);
+        tag.insertAdjacentHTML('afterbegin', replacePrice(cart.amount, true));
+        document.querySelector('.cart-footer').append(tag);
     }
 
     let cartProducts = document.querySelector('.cart-products');
@@ -138,7 +141,7 @@ const renderCart = () => {
 
     cart.products.forEach(element => cartProducts.append(createProductInBasketCard(element)));
     document.querySelector('.count').innerText = getProductQuantity();
-    document.querySelector('.cart-amount').innerText = `${cart.amount} руб.`;
+    document.querySelector('.cart-amount').innerText = replacePrice(cart.amount);
 };
 
 const addProduct = (id) => {
@@ -187,21 +190,7 @@ const modalWindowToggle = () => {
     document.querySelector('.modal-window').classList.toggle('hidden');
 };
 
-
-//const newObj = () => {
-//  let arr = catalog.map(element => ({
-//          cat: 'meow',
-//    id: element.id
-//   }
-//    )
-//  );
-//  console.log(arr);
-// console.log(catalog);
-//};
-
-
 const eventListener = () => {
-    // newObj();
     document.addEventListener('click', (e) => {
         if (e.target['id'] !== undefined) {
             const arr = e.target['id'].split('-');

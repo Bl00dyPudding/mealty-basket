@@ -1,12 +1,11 @@
 import { basket } from './basket.js';
 import { slider } from './slider.js';
-//import { timeNow } from './day-and-night-theme.js';
-
-
+import { additional } from './additional.js';
 
 const run = () => {
     slider();
     basket();
-   // timeNow();
+    additional();
 };
+
 run();

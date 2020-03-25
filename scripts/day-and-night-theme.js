@@ -14,7 +14,7 @@ const buttonTheme = () => {
 
 };
 
-const timeNow = () => {
+const getTime = () => {
     let date = new Date();
     let time;
     if ((0 < date.getHours() && date.getHours() <= 7) || (18 <= date.getHours() && date.getHours() <= 23)) {
@@ -25,4 +25,4 @@ const timeNow = () => {
     switchTheme(time);
 };
 
-export {timeNow}
+export {getTime as theme}
