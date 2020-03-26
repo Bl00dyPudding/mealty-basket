@@ -135,11 +135,11 @@ const renderCart = () => {
     let price = document.querySelector('.price');
     if (price !== null) {
         price.innerHTML = '';
-        price.insertAdjacentHTML('afterbegin', replacePrice(cart.amount, true));
+        price.insertAdjacentHTML('afterbegin', replacePrice(cart.amount.toFixed(2), true));
     } else {
         let tag = document.createElement('p');
         tag.classList.add('price');
-        tag.insertAdjacentHTML('afterbegin', replacePrice(cart.amount, true));
+        tag.insertAdjacentHTML('afterbegin', replacePrice(cart.amount.toFixed(2), true));
         document.querySelector('.cart-footer').append(tag);
     }
 
@@ -151,7 +151,7 @@ const renderCart = () => {
 
     cart.products.forEach(element => cartProducts.append(createProductInBasketCard(element)));
     document.querySelector('.count').innerText = getProductQuantity();
-    document.querySelector('.cart-amount').innerText = replacePrice(cart.amount);
+    document.querySelector('.cart-amount').innerText = replacePrice(cart.amount.toFixed(2));
 
     if (cart.products.length > 0) {
         document.querySelector('.cart-empty').classList.add('hidden');
@@ -162,8 +162,6 @@ const renderCart = () => {
         document.querySelector('.cart').classList.add('hidden');
         document.querySelector('.cart-footer').classList.add('hidden');
     }
-
-    console.log(cart)
 };
 
 const discount = () => {
